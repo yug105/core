@@ -627,11 +627,13 @@ sub_configure() {
 		ANDROID_API_LEVEL="${ANDROID_API_LEVEL:-30}"
 		ANDROID_ABI="${ANDROID_ABI:-x86_64}"
 
+		# Bionic does not provide backtrace_symbols until API level 33
 		BUILD_STRING="$BUILD_STRING \
 			-DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
 			-DANDROID_ABI=${ANDROID_ABI} \
 			-DANDROID_PLATFORM=android-${ANDROID_API_LEVEL} \
 			-DANDROID_STL=c++_shared \
+			-DOPTION_BUILD_PLUGINS_BACKTRACE=Off \
 			-Wno-dev \
 			-G Ninja"
 	fi
